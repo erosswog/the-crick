@@ -1,0 +1,22 @@
+{
+  "version": "1.0.0",
+  "name": "Cross Creek Golf Tournament",
+  "launch_path": "/index.html",
+  "description": "Cross Creek Golf Tournament Web App",
+  "developer": {
+    "name": "Eric Rosswog",
+    "url": "thecrick.us"
+  },
+  "installs_allowed_from": [
+    "*"
+  ],
+  "default_locale": "en",
+  "permissions": {
+  },
+  "locales": {
+    "en": {
+      "name": "Cross Creek Golf Tournament",
+      "description": "Cross Creek Golf Tournament Web App"
+    }
+  }
+}

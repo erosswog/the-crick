@@ -1,0 +1,8 @@
+{
+  "name": "the-crick",
+  "description": "Cross Creek Golf Tournament Web App",
+  "dependencies": {
+    "firebase-admin": "^4.1.1",
+    "firebase-functions": "^0.5.1"
+  }
+}
