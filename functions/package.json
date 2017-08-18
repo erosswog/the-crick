@@ -1,5 +1,5 @@
 {
-  "name": "the-crick",
+  "name": "TheCrick",
   "description": "Cross Creek Golf Tournament Web App",
   "dependencies": {
     "firebase-admin": "^4.1.1",

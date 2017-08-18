@@ -5,12 +5,19 @@ function TheCrick() {
   this.checkSetup();
 
   // Shortcuts to DOM Elements.
+  this.userPic = document.getElementById("user-pic");
+  this.userName = document.getElementById("user-name");
+  this.signInButton = document.getElementById('sign-in');
+  this.signOutButton = document.getElementById('sign-out');
 
+  this.signOutButton.addEventListener('click', this.signOut.bind(this));
+  this.signInButton.addEventListener('click', this.signIn.bind(this));
   this.initFirebase();
 }
 
 // Sets up shortcuts to Firebase features and initiate firebase auth.
 TheCrick.prototype.initFirebase = function() {
+  console.log("Got here");
   // Shortcuts to Firebase SDK features
   this.auth = firebase.auth();
   this.database = firebase.database();
@@ -42,7 +49,7 @@ TheCrick.prototype.onAuthStateChanged = function(user) {
 
     // Set the user's profile pic and name
     this.userPic.style.backgroundImage = 'url(' + profilePicUrl + ')';
-    this.username.textContent = userName;
+    this.userName.textContent = userName;
 
     // Show user's profile and sign-out button.
     this.userName.removeAttribute('hidden');

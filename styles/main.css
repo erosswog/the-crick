@@ -81,9 +81,14 @@ html, body {
 
 .demo-content {
   max-width: 1080px;
+  align-items: left;
+  align-content: left;
+  align-self: left;
 }
 
-.demo-charts {
+.demo-leaderboard {
+  -webkit-align-items: center;
+  -ms-flex-align: center;
   align-items: center;
 }
 .demo-chart:nth-child(1) {
