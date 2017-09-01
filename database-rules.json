@@ -1,8 +1,8 @@
 {
   "rules": {
-    "messages": {
-      ".read": "auth !== null",
-      ".write": "auth !== null"
+    "leaderboard": {
+      ".read": true,
+      ".write": false
     },
     "fcmTokens": {
       "$token": {
