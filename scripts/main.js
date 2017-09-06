@@ -13,19 +13,110 @@ TheCrick.LEADERBOARD_ROW_TEMPLATE =
 function TheCrick() {
   this.checkSetup();
 
+  this.myGolfers = [];
+
   // Shortcuts to DOM Elements.
   this.userPic = document.getElementById("user-pic");
   this.userName = document.getElementById("user-name");
   this.signInButton = document.getElementById('sign-in');
   this.signOutButton = document.getElementById('sign-out');
-  this.leaderboard = document.getElementById('leaderboard');
-  this.rank = 1;
 
   this.signOutButton.addEventListener('click', this.signOut.bind(this));
   this.signInButton.addEventListener('click', this.signIn.bind(this));
   this.initFirebase();
-  this.loadLeaderboard();
-}
+
+  if (location.pathname == "/index.html")
+  {
+    this.leaderboard = document.getElementById('leaderboard');
+    this.rank = 1;
+    this.loadLeaderboard();
+  }
+  else if(location.pathname == "/post-score.html") {
+    this.golfersCB = document.getElementById("golfers");
+    this.roundCB = document.getElementById("round");
+    this.scoreTB = document.getElementById("Score");
+    this.handicapTB = document.getElementById("Handicap");
+    this.submitButton = document.getElementById("submit");
+    this.postScoreForm = document.getElementById("post-score-form");
+
+    this.postScoreForm.addEventListener('submit', this.postScore.bind(this));
+
+    // Toggle for the button.
+    var buttonTogglingHandler = this.toggleButton.bind(this);
+    this.golfersCB.addEventListener('change', buttonTogglingHandler);
+    this.roundCB.addEventListener('change', buttonTogglingHandler);
+    this.scoreTB.addEventListener('change', buttonTogglingHandler);
+    this.handicapTB.addEventListener('change', buttonTogglingHandler);
+
+    this.loadGolferComboBox();
+  }
+};
+
+TheCrick.prototype.loadGolferComboBox = function() {
+  // Reference to the /leaderboard/ database path.
+  this.leaderboardRef = this.database.ref('leaderboard').orderByKey();
+  // Make sure we remove all previous listeners
+  this.leaderboardRef.off();
+
+  // Loads the names of the golfers from the Leaderboard Table
+  var loadGolfer = function(data) {
+    var opt = document.createElement('option');
+    var tn1 = document.createTextNode(data.key);
+    opt.appendChild(tn1);
+    this.golfersCB.appendChild(opt);
+  }.bind(this);
+  this.leaderboardRef.on('child_added', loadGolfer);
+  this.leaderboardRef.on('child_changed', loadGolfer);
+};
+
+// Enables or disables the submit button depending on the values of the input
+// fields.
+TheCrick.prototype.toggleButton = function() {
+  if (this.golfersCB.value && this.roundCB.value && this.scoreTB.value &&
+      this.handicapTB.value) {
+    if (this.checkSignedInWithMessage()) {
+      var currentUser = this.auth.currentUser;
+      if (currentUser.email == "erosswog@gmail.com" || currenUser.email == "mbsalamacha@gmail.com") {
+        this.submitButton.removeAttribute('disabled');
+      }
+      else {
+        this.submitButton.setAttribute('disabled', 'true');
+      }
+    }
+    else {
+      this.submitButton.setAttribute('disabled', 'true');
+    }
+  }
+  else {
+    this.submitButton.setAttribute('disabled', 'true');
+  }
+};
+
+// Posts a new score on the Firebase DB.
+TheCrick.prototype.postScore = function(e) {
+  e.preventDefault();
+  // Check that the user is signed in.
+  if (this.checkSignedInWithMessage()) {
+    var currentUser = this.auth.currentUser;
+    if (currentUser.email == "erosswog@gmail.com" || currenUser.email == "mbsalamacha@gmail.com") {
+      // Retrieve DB entry corresponding to selected golfer and update data for
+      // the round selected. If that round already has an entry, do not overwrite.
+
+
+    }
+    /*this.messagesRef.push({
+      name: currentUser.displayName,
+      text: this.messageInput.value,
+      photoUrl: currentUser.photoURL || '/images/profile_placeholder.png'
+    }).then(function() {
+      // Clear message text field and SEND button state.
+      FriendlyChat.resetMaterialTextfield(this.messageInput);
+      this.toggleButton();
+    }.bind(this)).catch(function(error) {
+      console.error('Error writing new message to Firebase Database', error);
+    });*/
+  }
+};
 
 // Sets up shortcuts to Firebase features and initiate firebase auth.
 TheCrick.prototype.initFirebase = function() {
@@ -142,7 +233,7 @@ TheCrick.prototype.checkSetup = function() {
 // Loads the leaderboard from the database
 TheCrick.prototype.loadLeaderboard = function() {
   // Reference to the /messages/ database path.
-  this.leaderboardRef = this.database.ref('leaderboard');
+  this.leaderboardRef = this.database.ref('leaderboard').orderByChild('Total');
   // Make sure we remove all previous listeners
   this.leaderboardRef.off();
 
