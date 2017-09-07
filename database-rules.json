@@ -2,7 +2,7 @@
   "rules": {
     "leaderboard": {
       ".read": true,
-      ".write": false
+      ".write": true
     },
     "fcmTokens": {
       "$token": {

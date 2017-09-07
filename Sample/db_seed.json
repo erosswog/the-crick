@@ -1,56 +1,76 @@
 {
   "leaderboard" : {
     "Eric Rosswog" : {
-      "rd1": 73,
-      "rd2": 71,
-      "rd3": 70,
-      "Total": -2
+      "rd1": 0,
+      "rd2": 0,
+      "rd3": 0,
+      "Total": 0
     },
     "Mark Salamacha" : {
-      "rd1": 72,
-      "rd2": 71,
-      "rd3": 77,
-      "Total": 4
+      "rd1": 0,
+      "rd2": 0,
+      "rd3": 0,
+      "Total": 0
     },
     "Tom Jozwiak" : {
-      "rd1": 70,
-      "rd2": 71,
-      "rd3": 70,
-      "Total": -5
+      "rd1": 0,
+      "rd2": 0,
+      "rd3": 0,
+      "Total": 0
     },
     "Fred Wolfe" : {
-      "rd1": 73,
-      "rd2": 75,
-      "rd3": 70,
-      "Total": 2
+      "rd1": 0,
+      "rd2": 0,
+      "rd3": 0,
+      "Total": 0
+    },
+    "Robert Novak" : {
+      "rd1": 0,
+      "rd2": 0,
+      "rd3": 0,
+      "Total": 0
+    },
+    "David Novak" : {
+      "rd1": 0,
+      "rd2": 0,
+      "rd3": 0,
+      "Total": 0
+    },
+    "Tony Dilulio" : {
+      "rd1": 0,
+      "rd2": 0,
+      "rd3": 0,
+      "Total": 0
+    },
+    "Jake The Snake" : {
+      "rd1": 0,
+      "rd2": 0,
+      "rd3": 0,
+      "Total": 0
+    },
+    "Matt Dilulio" : {
+      "rd1": 0,
+      "rd2": 0,
+      "rd3": 0,
+      "Total": 0
+    },
+    "Jon Hartman" : {
+      "rd1": 0,
+      "rd2": 0,
+      "rd3": 0,
+      "Total": 0
+    },
+    "Joe Barkley" : {
+      "rd1": 0,
+      "rd2": 0,
+      "rd3": 0,
+      "Total": 0
+    },
+    "Jack Haley" : {
+      "rd1": 0,
+      "rd2": 0,
+      "rd3": 0,
+      "Total": 0
     }
-  },
-  "champions" : {
-      "2010": "Winner",
-      "2011": "Winner",
-      "2012": "Winner",
-      "2013": "Winner",
-      "2014": "Winner",
-      "2015": "Winner",
-      "2016": "Winner"
-  },
-  "golfers": {
-    "Eric Rosswog": {
-      "image": "eric_rosswog.png",
-      "handicap": 20,
-      "rounds": [
-        { "date": "2016-09-12", "gross": 90, "handicap": 20, "net": 70 },
-        { "date": "2016-09-13", "gross": 92, "handicap": 18, "net": 74 },
-        { "date": "2016-09-14", "gross": 87, "handicap": 19, "net": 68 }
-      ]
-    }
-  },
-  "pairings": {
-    "Group 1": [
-      "Eric Rosswog", "Mark Salamacha", "Tom Jozwiak", "Fred Wolfe"
-    ],
-    "Group 2": [
-      "Player 1", "Player 2", "Player 3", "Player 4"
-    ]
   }
 }

@@ -98,11 +98,48 @@ TheCrick.prototype.postScore = function(e) {
   // Check that the user is signed in.
   if (this.checkSignedInWithMessage()) {
     var currentUser = this.auth.currentUser;
-    if (currentUser.email == "erosswog@gmail.com" || currenUser.email == "mbsalamacha@gmail.com") {
+    if (currentUser.email === "erosswog@gmail.com" || currenUser.email === "mbsalamacha@gmail.com") {
       // Retrieve DB entry corresponding to selected golfer and update data for
-      // the round selected. If that round already has an entry, do not overwrite.
+      // the round selected. If that round already has an entry, overwrite it.
+      var userId = firebase.auth().currentUser.uid;
+      var scores = [];
+      var updates = {};
+      var round = '';
+      var par = 0;
+      var gross = 0;
 
+      firebase.database().ref('/leaderboard/' + this.golfersCB.value).once('value', function(snapshot) {
+        scores[0] = snapshot.val().rd1;
+        scores[1] = snapshot.val().rd2;
+        scores[2] = snapshot.val().rd3;
+      });
 
+      if (this.roundCB.value === 'Rd1') {
+        round = 'rd1';
+        scores[0] = this.scoreTB.value - this.handicapTB.value;
+      }
+      else if (this.roundCB.value === 'Rd2') {
+        round = 'rd2';
+        scores[1] = this.scoreTB.value - this.handicapTB.value;
+      }
+      else if (this.roundCB.value === 'Rd3') {
+        round = 'rd3';
+        scores[2] = this.scoreTB.value - this.handicapTB.value;
+      }
+      else {
+        return false;
+      }
+
+      for(var i = 0; i < scores.length; i++) {
+        if (scores[i] != 0) {
+          par += 72;
+          gross += scores[i];
+        }
+      }
+
+      updates['/leaderboard/' + this.golfersCB.value + '/' + round] = this.scoreTB.value - this.handicapTB.value;
+      updates['/leaderboard/' + this.golfersCB.value + '/Total'] = gross - par;
+      return firebase.database().ref().update(updates);
     }
     /*this.messagesRef.push({
       name: currentUser.displayName,
@@ -248,10 +285,24 @@ TheCrick.prototype.loadLeaderboard = function() {
 
 // Displays the Leaderboard Entry in the table
 TheCrick.prototype.displayLeaderboardEntry = function(name, total, rd1, rd2, rd3) {
-  // First need to create objects for each golfer.
-  // Then need to store the golfers in an array
-  // Then need to sort the golfers array by score for display.
-    // Or make it easier on ourselves and have the serverside handle it by insertion
+  if (total === 0) {
+    if (rd1 === 0 && rd2 === 0 && rd3 === 0) {
+      total = '-';
+    }
+    else {
+      total = 'E';
+    }
+  }
+  if (rd1 === 0) {
+    rd1 = '-';
+  }
+  if (rd2 === 0) {
+    rd2 = '-';
+  }
+  if (rd3 === 0) {
+    rd3 = '-';
+  }
+
   var row = document.createElement('tr');
   var cell1 = document.createElement('td');
   var tn1 = document.createTextNode(this.rank++);

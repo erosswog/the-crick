@@ -21,7 +21,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="description" content="The Annual Cross Creek Golf Tournament Web Page.">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
-    <title>Cross Creek Golf Tournament - Course Information</title>
+    <title>Cross Creek Golf Tournament - Groupings</title>
 
     <!-- Add to homescreen for Chrome on Android -->
     <meta name="mobile-web-app-capable" content="yes">
@@ -64,7 +64,7 @@
     <div class="demo-layout mdl-layout mdl-js-layout mdl-layout--fixed-drawer mdl-layout--fixed-header">
       <header class="demo-header mdl-layout__header mdl-color--grey-100 mdl-color-text--grey-600">
         <div class="mdl-layout__header-row">
-          <span id="page-header" class="mdl-layout-title">Course Information</span>
+          <span id="page-header" class="mdl-layout-title">Groupings</span>
           <div class="mdl-layout-spacer"></div>
           <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon" id="hdrbtn">
             <i class="material-icons">more_vert</i>
@@ -106,36 +106,33 @@
           <a class="mdl-navigation__link mdl-color-text--white" href="post-score.html"><i class="mdl-color-text--yellow-500 material-icons" role="presentation">mode_edit</i>Post Score</a>
         </nav>
       </div>
-      <main class="mdl-layout__content mdl-color--grey-100  demo-content">
+      <main class="mdl-layout__content mdl-color--grey-100 demo-content">
         <div class="mdl-grid demo-content">
-          <div class="mdl-cell mdl-color--white mdl-cell--5-col">
-            <div class="mdl-card mdl-shadow--2dp" style="width:auto">
-              <div class="mdl-card__title">
-                <h4>Course Layout</h4>
-              </div>
-              <div class="mdl-card__media">
-                <img src="images/scorecardlayout.jpg">
-              </div>
-            </div>
-          </div>
-          <div class="mdl-cell mdl-cell--9-col">
-            <div class="mdl-card mdl-card mdl-shadow--2dp" style="width:auto">
-              <div class="mdl-card__title">
-                <h4>North Course Card</h4>
-              </div>
-              <div class="mdl-card__media">
-                <img src="images/scorecardnorth.jpg">
-              </div>
-            </div>
-          </div>
-          <div class="mdl-cell mdl-cell--5-col">
-            <div class="mdl-card mdl-card mdl-shadow--2dp" style="width:auto">
-              <div class="mdl-card__title">
-                <h4>South Course Card</h4>
-              </div>
-              <div class="mdl-card__media mdl-color-background--white">
-                <img src="images/scorecardsouth.jpg">
-              </div>
+          <div id="groupings-card" class="mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col mdl-cell--6-col-tablet mdl-cell--6-col-desktop">
+            <div class="mdl-card__supporting-text mdl-color-text--grey-600">
+              <form id="groupings-form" action="#">
+                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                  <label id="The Title Goes Here" class="mdl-textfield__label">Score:</label>
+                  <table id="Groupings" class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
+                    <thead>
+                      <tr>
+                        <th class="mdl-data-table__cell--non-numeric">Group 1</th>
+                        <th class="mdl-data-table__cell--non-numeric">Group 2</th>
+                        <th class="mdl-data-table__cell--non-numeric">Group 2</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                  </table>
+                </div>
+                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                  <label class="mdl-textfield__label" for="Title">New Table Title:</label>
+                  <input class="mdl-textfield__input" type="text" id="Title">
+                </div>
+                <button id="submit" disabled type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">
+                  Generate Pairings
+                </button>
+              </form>
             </div>
           </div>
         </div>
