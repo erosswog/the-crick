@@ -25,13 +25,13 @@ function TheCrick() {
   this.signInButton.addEventListener('click', this.signIn.bind(this));
   this.initFirebase();
 
-  if (location.pathname == "/index.html" || location.pathname == "/")
+  if (location.pathname === "/index.html" || location.pathname === "/")
   {
     this.leaderboard = document.getElementById('leaderboard');
     this.rank = 1;
     this.loadLeaderboard();
   }
-  else if(location.pathname == "/post-score.html") {
+  else if(location.pathname === "/post-score.html") {
     this.golfersCB = document.getElementById("golfers");
     this.roundCB = document.getElementById("round");
     this.scoreTB = document.getElementById("Score");
@@ -49,6 +49,17 @@ function TheCrick() {
     this.handicapTB.addEventListener('change', buttonTogglingHandler);
 
     this.loadGolferComboBox();
+  }
+  else if(location.href === "/groupings.html") {
+    this.randomPairsButton = document.getElementById("randomPairings");
+    this.useScoresButton = document.getElementById("useScores");
+    this.groupingsForm = document.getElementById("groupings-form");
+    this.groupingsTable = document.getElementById("Groupings");
+
+    this.groupingsForm.addEventListener('randomPairings', this.generateRandomPairings.bind(this));
+    this.groupingsForm.addEventListener('useScores', this.generatePairingsFromScores.bind(this));
+
+    this.loadGroupingsTable();
   }
 };
 
