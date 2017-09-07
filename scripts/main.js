@@ -80,6 +80,23 @@ TheCrick.prototype.loadGolferComboBox = function() {
   this.leaderboardRef.on('child_changed', loadGolfer);
 };
 
+TheCrick.prototype.loadGroupingsTable = function() {
+  // load golfer names from groupings table and display it.
+};
+
+TheCrick.prototype.generateRandomPairings = function () {
+  // Load golfer names from Leaderboard
+  // Generate pairings randomly.
+  // update our database
+  // call loadGroupingsTable -> is this needed if we use on child added/changed?
+};
+
+TheCrick.prototype.generatePairingsFromScores = function() {
+  // Load golfer names from leaderboard sorted by score
+  // Update our database
+  // call loadGroupingsTable -> is this needed if we use on child added/changed?
+};
+
 // Enables or disables the submit button depending on the values of the input
 // fields.
 TheCrick.prototype.toggleButton = function() {
