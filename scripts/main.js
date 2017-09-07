@@ -25,7 +25,7 @@ function TheCrick() {
   this.signInButton.addEventListener('click', this.signIn.bind(this));
   this.initFirebase();
 
-  if (location.pathname == "/index.html")
+  if (location.pathname == "/index.html" || location.pathname == "/")
   {
     this.leaderboard = document.getElementById('leaderboard');
     this.rank = 1;
