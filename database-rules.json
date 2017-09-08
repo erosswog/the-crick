@@ -4,6 +4,10 @@
       ".read": true,
       ".write": true
     },
+    "groupings": {
+      ".read": true,
+      ".write": true
+    },
     "fcmTokens": {
       "$token": {
         // Users can only read their own device tokens

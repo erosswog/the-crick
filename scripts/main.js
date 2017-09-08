@@ -52,9 +52,9 @@ function TheCrick() {
 
     this.loadGolferComboBox();
   }
-  else if(location.href === "/groupings.html") {
-    this.randomPairsButton = document.getElementById("randomPairings");
-    this.useScoresButton = document.getElementById("useScores");
+  else if(location.pathname === "/groupings.html") {
+    //this.randomPairsButton = document.getElementById("randomPairings");
+    //this.useScoresButton = document.getElementById("useScores");
     this.groupingsForm = document.getElementById("groupings-form");
     this.groupingsTable = document.getElementById("Groupings");
 
@@ -84,32 +84,35 @@ TheCrick.prototype.loadGolferComboBox = function() {
 
 TheCrick.prototype.loadGroupingsTable = function() {
   // load golfer names from groupings table and display it.
-  var groups = [];
+  // Reference to the /leaderboard/ database path.
+  this.groupingsRef = this.database.ref('groupings');
   // Make sure we remove all previous listeners
-  this.database.ref('groupings').off();
+  this.groupingsRef.off();
 
-  // Loads the last 12 messages and listen for new ones.
-  var setGroupings = function(data) {
-    groups.push(data.val());
+  // Loads the names of the golfers from the Leaderboard Table
+  var loadGroups = function(data) {
+    this.displayGroupingEntry(data.key, data.val());
   }.bind(this);
-  this.database.ref('groupings').on('child_added', setGroupings);
-  this.database.ref('groupings').on('child_changed', setGroupings);
-
-  this.displayGroupingEntry(groups);
+  this.groupingsRef.on('child_added', loadGroups);
+  this.groupingsRef.on('child_changed', loadGroups);
 };
 
-TheCrick.prototype.displayGroupingEntry(groups); {
-  for (var i = 0; i < FOURSOME; i++) {
-      var row = document.createElement('tr');
+TheCrick.prototype.displayGroupingEntry = function(group, groupsArr) {
+  var row = document.createElement('tr');
+  var cell = document.createElement('td');
+  var bold = document.createElement('b');
+  var tn = document.createTextNode(group);
+  bold.appendChild(tn);
+  cell.appendChild(bold);
+  row.appendChild(cell);
 
-      for (var j = 0; j < groups[i].length; j++) {
-        var cell = document.createElement('td');
-        var tn = document.createTextNode(groups[i][j]);
-        cell.appendChild(tn);
-        row.appendChild(cell);
-      }
-      this.groupingsTable.appendChild(row);
+  for (var i = 0; i < groupsArr.length; i++) {
+    cell = document.createElement('td');
+    tn = document.createTextNode(groupsArr[i]);
+    cell.appendChild(tn);
+    row.appendChild(cell);
   }
+  this.groupingsTable.appendChild(row);
 }
 
 TheCrick.prototype.generateRandomPairings = function () {
@@ -333,7 +336,7 @@ TheCrick.prototype.loadLeaderboard = function() {
 TheCrick.prototype.displayLeaderboardEntry = function(name, total, rd1, rd2, rd3, handicap) {
   if (total === 0) {
     if (rd1 === 0 && rd2 === 0 && rd3 === 0) {
-      total = '-';
+      total = '~';
     }
     else {
       total = 'E';
