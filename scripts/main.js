@@ -11,6 +11,7 @@ TheCrick.LEADERBOARD_ROW_TEMPLATE =
 
 const PAR_NORTH = 70;
 const FOURSOME = 4;
+const MAX_GROUPS = 3;
 
 // Initializes the App
 function TheCrick() {
@@ -50,10 +51,9 @@ function TheCrick() {
     this.scoreTB.addEventListener('change', buttonTogglingHandler);
     this.scoreTB.addEventListener('keyup', buttonTogglingHandler);
 
-    this.loadGolferComboBox();
+    this.loadGolferComboBox(this.golfersCB);
   }
   else if(location.pathname === "/groupings.html") {
-    this.groupingsForm = document.getElementById("groupings-form");
     this.groupingsTable = document.getElementById("Groupings");
     this.loadGroupingsTable();
   }
@@ -75,9 +75,145 @@ function TheCrick() {
     this.registerGolferForm.addEventListener('submit', this.registerGolfer.bind(this));
     this.loadRegisteredGolfersTable();
   }
+  else if(location.pathname === '/new-groupings.html') {
+    this.newGroupingsForm = document.getElementById("new-groups-form");
+    this.submitButton = document.getElementById("submit");
+    this.golfer1aCB = document.getElementById("golfer1a");
+    this.golfer1bCB = document.getElementById("golfer1b");
+    this.golfer1cCB = document.getElementById("golfer1c");
+    this.golfer1dCB = document.getElementById("golfer1d");
+    this.golfer2aCB = document.getElementById("golfer2a");
+    this.golfer2bCB = document.getElementById("golfer2b");
+    this.golfer2cCB = document.getElementById("golfer2c");
+    this.golfer2dCB = document.getElementById("golfer2d");
+    this.golfer3aCB = document.getElementById("golfer3a");
+    this.golfer3bCB = document.getElementById("golfer3b");
+    this.golfer3cCB = document.getElementById("golfer3c");
+    this.golfer3dCB = document.getElementById("golfer3d");
+    this.newGroupsSnackBarContainer = document.getElementById("new-groups-snackbar");
+
+    // Toggle for the button.
+    var newGroupsButtonTogglingHandler = this.toggleNewGroupsButton.bind(this);
+    this.golfer1aCB.addEventListener('change', newGroupsButtonTogglingHandler);
+    this.golfer1aCB.addEventListener('keyup', newGroupsButtonTogglingHandler);
+    this.golfer2aCB.addEventListener('change', newGroupsButtonTogglingHandler);
+    this.golfer2aCB.addEventListener('keyup', newGroupsButtonTogglingHandler);
+    this.golfer3aCB.addEventListener('change', newGroupsButtonTogglingHandler);
+    this.golfer3aCB.addEventListener('keyup', newGroupsButtonTogglingHandler);
+
+    this.newGroupingsForm.addEventListener('submit', this.processNewGroups.bind(this));
+    this.loadRegisterComboBoxes();
+  }
 };
 
-TheCrick.prototype.loadGolferComboBox = function() {
+TheCrick.prototype.processNewGroups = function(e) {
+  e.preventDefault();
+  // Check that the user is signed in.
+  if (this.checkSignedInWithMessage()) {
+    var currentUser = this.auth.currentUser;
+    if (currentUser.email === "erosswog@gmail.com" || currentUser.email === "mbsalamacha@gmail.com") {
+
+      var updates = {};
+      updates['/groupings/' + 'Group 1'] = [this.golfer1aCB.value, this.golfer1bCB.value, this.golfer1cCB.value, this.golfer1dCB.value];
+      updates['/groupings/' + 'Group 2'] = [this.golfer2aCB.value, this.golfer2bCB.value, this.golfer2cCB.value, this.golfer2dCB.value];
+      updates['/groupings/' + 'Group 3'] = [this.golfer3aCB.value, this.golfer3bCB.value, this.golfer3cCB.value, this.golfer3dCB.value];
+
+      var data = {
+        message: 'New Groups have been recorded.',
+        timeout: 2000,
+      };
+      firebase.database().ref().update(updates);
+      this.golfer1aCB.value = "";
+      this.golfer1bCB.value = "";
+      this.golfer1cCB.value = "";
+      this.golfer1dCB.value = "";
+      this.golfer2aCB.value = "";
+      this.golfer2bCB.value = "";
+      this.golfer2cCB.value = "";
+      this.golfer2dCB.value = "";
+      this.golfer3aCB.value = "";
+      this.golfer3bCB.value = "";
+      this.golfer3cCB.value = "";
+      this.golfer3dCB.value = "";
+      this.newGroupsSnackbarContainer.MaterialSnackbar.showSnackbar(data);
+    }
+  }
+};
+
+TheCrick.prototype.loadRegisterComboBoxes = function () {
+  // Loads the names of the golfers from the Leaderboard Table
+  // Reference to the /leaderboard/ database path.
+  this.leaderboardRef = this.database.ref('leaderboard').orderByKey();
+  // Make sure we remove all previous listeners
+  this.leaderboardRef.off();
+
+  // Loads the names of the golfers from the Leaderboard Table
+  var loadGolfer = function(data) {
+    var tn1a = document.createTextNode(data.key);
+    var opt1a = document.createElement('option');
+    opt1a.appendChild(tn1a);
+    this.golfer1aCB.appendChild(opt1a);
+
+    var tn1b = document.createTextNode(data.key);
+    var opt1b = document.createElement('option');
+    opt1b.appendChild(tn1b);
+    this.golfer1bCB.appendChild(opt1b);
+
+    var tn1c = document.createTextNode(data.key);
+    var opt1c = document.createElement('option');
+    opt1c.appendChild(tn1c);
+    this.golfer1cCB.appendChild(opt1c);
+
+    var tn1d = document.createTextNode(data.key);
+    var opt1d = document.createElement('option');
+    opt1d.appendChild(tn1d);
+    this.golfer1dCB.appendChild(opt1d);
+
+    var tn2a = document.createTextNode(data.key);
+    var opt2a = document.createElement('option');
+    opt2a.appendChild(tn2a);
+    this.golfer2aCB.appendChild(opt2a);
+
+    var tn2b = document.createTextNode(data.key);
+    var opt2b = document.createElement('option');
+    opt2b.appendChild(tn2b);
+    this.golfer2bCB.appendChild(opt2b);
+
+    var tn2c = document.createTextNode(data.key);
+    var opt2c = document.createElement('option');
+    opt2c.appendChild(tn2c);
+    this.golfer2cCB.appendChild(opt2c);
+
+    var tn2d = document.createTextNode(data.key);
+    var opt2d = document.createElement('option');
+    opt2d.appendChild(tn2d);
+    this.golfer2dCB.appendChild(opt2d);
+
+    var tn3a = document.createTextNode(data.key);
+    var opt3a = document.createElement('option');
+    opt3a.appendChild(tn3a);
+    this.golfer3aCB.appendChild(opt3a);
+
+    var tn3b = document.createTextNode(data.key);
+    var opt3b = document.createElement('option');
+    opt3b.appendChild(tn3b);
+    this.golfer3bCB.appendChild(opt3b);
+
+    var tn3c = document.createTextNode(data.key);
+    var opt3c = document.createElement('option');
+    opt3c.appendChild(tn3c);
+    this.golfer3cCB.appendChild(opt3c);
+
+    var tn3d = document.createTextNode(data.key);
+    var opt3d = document.createElement('option');
+    opt3d.appendChild(tn3d);
+    this.golfer3dCB.appendChild(opt3d);
+  }.bind(this);
+  this.leaderboardRef.on('child_added', loadGolfer);
+  this.leaderboardRef.on('child_changed', loadGolfer);
+}
+
+TheCrick.prototype.loadGolferComboBox = function(comboBox) {
   // Reference to the /leaderboard/ database path.
   this.leaderboardRef = this.database.ref('leaderboard').orderByKey();
   // Make sure we remove all previous listeners
@@ -88,7 +224,7 @@ TheCrick.prototype.loadGolferComboBox = function() {
     var opt = document.createElement('option');
     var tn1 = document.createTextNode(data.key);
     opt.appendChild(tn1);
-    this.golfersCB.appendChild(opt);
+    comboBox.appendChild(opt);
   }.bind(this);
   this.leaderboardRef.on('child_added', loadGolfer);
   this.leaderboardRef.on('child_changed', loadGolfer);
@@ -132,7 +268,7 @@ TheCrick.prototype.registerGolfer = function(e) {
   // Check that the user is signed in.
   if (this.checkSignedInWithMessage()) {
     var currentUser = this.auth.currentUser;
-    if (currentUser.email === "erosswog@gmail.com" || currenUser.email === "mbsalamacha@gmail.com") {
+    if (currentUser.email === "erosswog@gmail.com" || currentUser.email === "mbsalamacha@gmail.com") {
       firebase.database().ref('leaderboard/' + this.nameTB.value).set({
         Total: 0,
         handicap: this.handicapTB.value,
@@ -179,7 +315,7 @@ TheCrick.prototype.toggleButton = function() {
   if (this.golfersCB.value && this.roundCB.value && this.scoreTB.value) {
     if (this.checkSignedInWithMessage()) {
       var currentUser = this.auth.currentUser;
-      if (currentUser.email == "erosswog@gmail.com" || currenUser.email == "mbsalamacha@gmail.com") {
+      if (currentUser.email == "erosswog@gmail.com" || currentUser.email == "mbsalamacha@gmail.com") {
         this.submitButton.removeAttribute('disabled');
       }
       else {
@@ -201,7 +337,7 @@ TheCrick.prototype.toggleRegisterButton = function() {
   if (this.nameTB.value && this.handicapTB.value) {
     if (this.checkSignedInWithMessage()) {
       var currentUser = this.auth.currentUser;
-      if (currentUser.email == "erosswog@gmail.com" || currenUser.email == "mbsalamacha@gmail.com") {
+      if (currentUser.email == "erosswog@gmail.com" || currentUser.email == "mbsalamacha@gmail.com") {
         this.registerButton.removeAttribute('disabled');
       }
       else {
@@ -217,13 +353,35 @@ TheCrick.prototype.toggleRegisterButton = function() {
   }
 };
 
+// Enables or disables the submit button depending on the values of the input
+// fields.
+TheCrick.prototype.toggleNewGroupsButton = function() {
+  if (this.golfer1aCB.value != "" && this.golfer2aCB.value != "" && this.golfer3aCB.value != "") {
+    if (this.checkSignedInWithMessage()) {
+      var currentUser = this.auth.currentUser;
+      if (currentUser.email == "erosswog@gmail.com" || currentUser.email == "mbsalamacha@gmail.com") {
+        this.submitButton.removeAttribute('disabled');
+      }
+      else {
+        this.submitButton.setAttribute('disabled', 'true');
+      }
+    }
+    else {
+      this.submitButton.setAttribute('disabled', 'true');
+    }
+  }
+  else {
+    this.submitButton.setAttribute('disabled', 'true');
+  }
+};
+
 // Posts a new score on the Firebase DB.
 TheCrick.prototype.postScore = function(e) {
   e.preventDefault();
   // Check that the user is signed in.
   if (this.checkSignedInWithMessage()) {
     var currentUser = this.auth.currentUser;
-    if (currentUser.email === "erosswog@gmail.com" || currenUser.email === "mbsalamacha@gmail.com") {
+    if (currentUser.email === "erosswog@gmail.com" || currentUser.email === "mbsalamacha@gmail.com") {
       // Retrieve DB entry corresponding to selected golfer and update data for
       // the round selected. If that round already has an entry, overwrite it.
       var userId = firebase.auth().currentUser.uid;
