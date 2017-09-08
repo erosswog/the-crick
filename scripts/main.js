@@ -40,7 +40,7 @@ function TheCrick() {
     this.scoreTB = document.getElementById("Score");
     this.submitButton = document.getElementById("submit");
     this.postScoreForm = document.getElementById("post-score-form");
-
+    this.postScoreSnackbarContainer = document.getElementById('post-score-snackbar');
     this.postScoreForm.addEventListener('submit', this.postScore.bind(this));
 
     // Toggle for the button.
@@ -53,15 +53,27 @@ function TheCrick() {
     this.loadGolferComboBox();
   }
   else if(location.pathname === "/groupings.html") {
-    //this.randomPairsButton = document.getElementById("randomPairings");
-    //this.useScoresButton = document.getElementById("useScores");
     this.groupingsForm = document.getElementById("groupings-form");
     this.groupingsTable = document.getElementById("Groupings");
-
-    this.groupingsForm.addEventListener('randomPairings', this.generateRandomPairings.bind(this));
-    this.groupingsForm.addEventListener('useScores', this.generatePairingsFromScores.bind(this));
-
     this.loadGroupingsTable();
+  }
+  else if(location.pathname === "/register-golfer.html") {
+    this.registerGolferForm = document.getElementById("register-golfer-form");
+    this.registeredGolfersTable = document.getElementById("registered-golfers-table");
+    this.registerButton = document.getElementById("submit");
+    this.nameTB = document.getElementById("Name");
+    this.handicapTB = document.getElementById("Handicap");
+    this.registerGolferSnackbarContainer = document.getElementById('register-golfer-snackbar');
+
+    // Toggle for the button.
+    var registerButtonTogglingHandler = this.toggleRegisterButton.bind(this);
+    this.nameTB.addEventListener('change', registerButtonTogglingHandler);
+    this.nameTB.addEventListener('keyup', registerButtonTogglingHandler);
+    this.handicapTB.addEventListener('change', registerButtonTogglingHandler);
+    this.handicapTB.addEventListener('keyup', registerButtonTogglingHandler);
+
+    this.registerGolferForm.addEventListener('submit', this.registerGolfer.bind(this));
+    this.loadRegisteredGolfersTable();
   }
 };
 
@@ -113,19 +125,52 @@ TheCrick.prototype.displayGroupingEntry = function(group, groupsArr) {
     row.appendChild(cell);
   }
   this.groupingsTable.appendChild(row);
-}
-
-TheCrick.prototype.generateRandomPairings = function () {
-  // Load golfer names from Leaderboard
-  // Generate pairings randomly.
-  // update our database
-  // call loadGroupingsTable -> is this needed if we use on child added/changed?
 };
 
-TheCrick.prototype.generatePairingsFromScores = function() {
-  // Load golfer names from leaderboard sorted by score
-  // Update our database
-  // call loadGroupingsTable -> is this needed if we use on child added/changed?
+TheCrick.prototype.registerGolfer = function(e) {
+  e.preventDefault();
+  // Check that the user is signed in.
+  if (this.checkSignedInWithMessage()) {
+    var currentUser = this.auth.currentUser;
+    if (currentUser.email === "erosswog@gmail.com" || currenUser.email === "mbsalamacha@gmail.com") {
+      firebase.database().ref('leaderboard/' + this.nameTB.value).set({
+        Total: 0,
+        handicap: this.handicapTB.value,
+        rd1: 0,
+        rd2: 0,
+        rd3: 0
+      });
+
+      var data = {
+        message: this.nameTB.value + ' has been registered.',
+        timeout: 2000,
+      };
+
+      this.nameTB.value = "";
+      this.handicapTB.value = "";
+      this.registerGolferSnackbarContainer.MaterialSnackbar.showSnackbar(data);
+    }
+  }
+};
+
+TheCrick.prototype.loadRegisteredGolfersTable = function() {
+  // Reference to the /leaderboard/ database path.
+  this.leaderboardRef = this.database.ref('leaderboard').orderByKey();
+  // Make sure we remove all previous listeners
+  this.leaderboardRef.off();
+
+  // Loads the names of the golfers from the Leaderboard Table
+  var loadGolfer = function(data) {
+    var row = document.createElement('tr');
+    var cell = document.createElement('td');
+    var tn = document.createTextNode(data.key);
+    cell.setAttribute("class", "mdl-data-table__cell--non-numeric");
+    cell.appendChild(tn);
+    row.appendChild(cell);
+    this.registeredGolfersTable.appendChild(row);
+  }.bind(this);
+  this.leaderboardRef.on('child_added', loadGolfer);
+  this.leaderboardRef.on('child_changed', loadGolfer);
 };
 
 // Enables or disables the submit button depending on the values of the input
@@ -147,6 +192,28 @@ TheCrick.prototype.toggleButton = function() {
   }
   else {
     this.submitButton.setAttribute('disabled', 'true');
+  }
+};
+
+// Enables or disables the submit button depending on the values of the input
+// fields.
+TheCrick.prototype.toggleRegisterButton = function() {
+  if (this.nameTB.value && this.handicapTB.value) {
+    if (this.checkSignedInWithMessage()) {
+      var currentUser = this.auth.currentUser;
+      if (currentUser.email == "erosswog@gmail.com" || currenUser.email == "mbsalamacha@gmail.com") {
+        this.registerButton.removeAttribute('disabled');
+      }
+      else {
+        this.registerButton.setAttribute('disabled', 'true');
+      }
+    }
+    else {
+      this.registerButton.setAttribute('disabled', 'true');
+    }
+  }
+  else {
+    this.registerButton.setAttribute('disabled', 'true');
   }
 };
 
@@ -199,7 +266,16 @@ TheCrick.prototype.postScore = function(e) {
 
       updates['/leaderboard/' + this.golfersCB.value + '/' + round] = this.scoreTB.value - handicap;
       updates['/leaderboard/' + this.golfersCB.value + '/Total'] = gross - par;
-      return firebase.database().ref().update(updates);
+
+      var data = {
+        message: this.golfersCB.value + '\'s score has been posted.',
+        timeout: 2000,
+      };
+      firebase.database().ref().update(updates);
+      this.golfersCB.value = "";
+      this.roundCB.value = "";
+      this.scoreTB.value = "";
+      this.postScoreSnackbarContainer.MaterialSnackbar.showSnackbar(data);
     }
   }
 };
@@ -336,7 +412,7 @@ TheCrick.prototype.loadLeaderboard = function() {
 TheCrick.prototype.displayLeaderboardEntry = function(name, total, rd1, rd2, rd3, handicap) {
   if (total === 0) {
     if (rd1 === 0 && rd2 === 0 && rd3 === 0) {
-      total = '~';
+      total = '-';
     }
     else {
       total = 'E';
