@@ -108,11 +108,11 @@
       </div>
       <main class="mdl-layout__content mdl-color--grey-100 demo-content">
         <div class="mdl-grid demo-content">
-          <div id="groupings-card" class="mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col mdl-cell--6-col-tablet mdl-cell--6-col-desktop">
-            <div class="mdl-card__supporting-text mdl-color-text--grey-600">
+          <div id="groupings-card" style="width:fit-content" class="mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col mdl-cell--6-col-tablet mdl-cell--6-col-desktop">
+            <div class="mdl-card__supporting-text mdl-color-text--grey-600" style="width:fit-content" style="overflow:auto">
               <form id="groupings-form" action="#">
                 <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                  <label id="The Title Goes Here" class="mdl-textfield__label">Score:</label>
+                  <label id="title-label" class="mdl-textfield__label">Title</label>
                   <table id="Groupings" class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
                     <thead>
                       <tr>
@@ -125,7 +125,7 @@
                     </tbody>
                   </table>
                 </div>
-                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                <!--<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                   <label class="mdl-textfield__label" for="Title">New Table Title:</label>
                   <input class="mdl-textfield__input" type="text" id="Title">
                 </div>
@@ -134,7 +134,7 @@
                 </button>
                 <button id="useScores" type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">
                   Use Scores
-                </button>
+                </button> -->
               </form>
             </div>
           </div>

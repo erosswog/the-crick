@@ -9,6 +9,9 @@ TheCrick.LEADERBOARD_ROW_TEMPLATE =
   '<td class="Rd2"></td>' +
   '<td class="Rd3"></td>';
 
+const PAR_NORTH = 70;
+const FOURSOME = 4;
+
 // Initializes the App
 function TheCrick() {
   this.checkSetup();
@@ -35,7 +38,6 @@ function TheCrick() {
     this.golfersCB = document.getElementById("golfers");
     this.roundCB = document.getElementById("round");
     this.scoreTB = document.getElementById("Score");
-    this.handicapTB = document.getElementById("Handicap");
     this.submitButton = document.getElementById("submit");
     this.postScoreForm = document.getElementById("post-score-form");
 
@@ -46,7 +48,7 @@ function TheCrick() {
     this.golfersCB.addEventListener('change', buttonTogglingHandler);
     this.roundCB.addEventListener('change', buttonTogglingHandler);
     this.scoreTB.addEventListener('change', buttonTogglingHandler);
-    this.handicapTB.addEventListener('change', buttonTogglingHandler);
+    this.scoreTB.addEventListener('keyup', buttonTogglingHandler);
 
     this.loadGolferComboBox();
   }
@@ -82,7 +84,33 @@ TheCrick.prototype.loadGolferComboBox = function() {
 
 TheCrick.prototype.loadGroupingsTable = function() {
   // load golfer names from groupings table and display it.
+  var groups = [];
+  // Make sure we remove all previous listeners
+  this.database.ref('groupings').off();
+
+  // Loads the last 12 messages and listen for new ones.
+  var setGroupings = function(data) {
+    groups.push(data.val());
+  }.bind(this);
+  this.database.ref('groupings').on('child_added', setGroupings);
+  this.database.ref('groupings').on('child_changed', setGroupings);
+
+  this.displayGroupingEntry(groups);
 };
+
+TheCrick.prototype.displayGroupingEntry(groups); {
+  for (var i = 0; i < FOURSOME; i++) {
+      var row = document.createElement('tr');
+
+      for (var j = 0; j < groups[i].length; j++) {
+        var cell = document.createElement('td');
+        var tn = document.createTextNode(groups[i][j]);
+        cell.appendChild(tn);
+        row.appendChild(cell);
+      }
+      this.groupingsTable.appendChild(row);
+  }
+}
 
 TheCrick.prototype.generateRandomPairings = function () {
   // Load golfer names from Leaderboard
@@ -100,8 +128,7 @@ TheCrick.prototype.generatePairingsFromScores = function() {
 // Enables or disables the submit button depending on the values of the input
 // fields.
 TheCrick.prototype.toggleButton = function() {
-  if (this.golfersCB.value && this.roundCB.value && this.scoreTB.value &&
-      this.handicapTB.value) {
+  if (this.golfersCB.value && this.roundCB.value && this.scoreTB.value) {
     if (this.checkSignedInWithMessage()) {
       var currentUser = this.auth.currentUser;
       if (currentUser.email == "erosswog@gmail.com" || currenUser.email == "mbsalamacha@gmail.com") {
@@ -135,24 +162,26 @@ TheCrick.prototype.postScore = function(e) {
       var round = '';
       var par = 0;
       var gross = 0;
+      var handicap = 0;
 
       firebase.database().ref('/leaderboard/' + this.golfersCB.value).once('value', function(snapshot) {
         scores[0] = snapshot.val().rd1;
         scores[1] = snapshot.val().rd2;
         scores[2] = snapshot.val().rd3;
+        handicap = snapshot.val().handicap;
       });
 
       if (this.roundCB.value === 'Rd1') {
         round = 'rd1';
-        scores[0] = this.scoreTB.value - this.handicapTB.value;
+        scores[0] = this.scoreTB.value - handicap;
       }
       else if (this.roundCB.value === 'Rd2') {
         round = 'rd2';
-        scores[1] = this.scoreTB.value - this.handicapTB.value;
+        scores[1] = this.scoreTB.value - handicap;
       }
       else if (this.roundCB.value === 'Rd3') {
         round = 'rd3';
-        scores[2] = this.scoreTB.value - this.handicapTB.value;
+        scores[2] = this.scoreTB.value - handicap;
       }
       else {
         return false;
@@ -160,26 +189,15 @@ TheCrick.prototype.postScore = function(e) {
 
       for(var i = 0; i < scores.length; i++) {
         if (scores[i] != 0) {
-          par += 72;
+          par += PAR_NORTH;
           gross += scores[i];
         }
       }
 
-      updates['/leaderboard/' + this.golfersCB.value + '/' + round] = this.scoreTB.value - this.handicapTB.value;
+      updates['/leaderboard/' + this.golfersCB.value + '/' + round] = this.scoreTB.value - handicap;
       updates['/leaderboard/' + this.golfersCB.value + '/Total'] = gross - par;
       return firebase.database().ref().update(updates);
     }
-    /*this.messagesRef.push({
-      name: currentUser.displayName,
-      text: this.messageInput.value,
-      photoUrl: currentUser.photoURL || '/images/profile_placeholder.png'
-    }).then(function() {
-      // Clear message text field and SEND button state.
-      FriendlyChat.resetMaterialTextfield(this.messageInput);
-      this.toggleButton();
-    }.bind(this)).catch(function(error) {
-      console.error('Error writing new message to Firebase Database', error);
-    });*/
   }
 };
 
@@ -305,14 +323,14 @@ TheCrick.prototype.loadLeaderboard = function() {
   // Loads the last 12 messages and listen for new ones.
   var setEntry = function(data) {
     var val = data.val();
-    this.displayLeaderboardEntry(data.key, val.Total, val.rd1, val.rd2, val.rd3);
+    this.displayLeaderboardEntry(data.key, val.Total, val.rd1, val.rd2, val.rd3, val.handicap);
   }.bind(this);
   this.leaderboardRef.on('child_added', setEntry);
   this.leaderboardRef.on('child_changed', setEntry);
 };
 
 // Displays the Leaderboard Entry in the table
-TheCrick.prototype.displayLeaderboardEntry = function(name, total, rd1, rd2, rd3) {
+TheCrick.prototype.displayLeaderboardEntry = function(name, total, rd1, rd2, rd3, handicap) {
   if (total === 0) {
     if (rd1 === 0 && rd2 === 0 && rd3 === 0) {
       total = '-';
@@ -337,7 +355,7 @@ TheCrick.prototype.displayLeaderboardEntry = function(name, total, rd1, rd2, rd3
   cell1.appendChild(tn1);
   var cell2 = document.createElement('td');
   cell2.setAttribute("class", "mdl-data-table__cell--non-numeric");
-  var tn2 = document.createTextNode(name);
+  var tn2 = document.createTextNode(name + ' (' + handicap + ')');
   cell2.appendChild(tn2);
   var cell3 = document.createElement('td');
   var tn3 = document.createTextNode(total);

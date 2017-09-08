@@ -4,73 +4,105 @@
       "rd1": 0,
       "rd2": 0,
       "rd3": 0,
-      "Total": 0
+      "Total": 0,
+      "handicap": 0
     },
     "Mark Salamacha" : {
       "rd1": 0,
       "rd2": 0,
       "rd3": 0,
-      "Total": 0
+      "Total": 0,
+      "handicap": 0
     },
     "Tom Jozwiak" : {
       "rd1": 0,
       "rd2": 0,
       "rd3": 0,
-      "Total": 0
+      "Total": 0,
+      "handicap": 0
     },
     "Fred Wolfe" : {
       "rd1": 0,
       "rd2": 0,
       "rd3": 0,
-      "Total": 0
+      "Total": 0,
+      "handicap": 0
     },
     "Robert Novak" : {
       "rd1": 0,
       "rd2": 0,
       "rd3": 0,
-      "Total": 0
+      "Total": 0,
+      "handicap": 0
     },
     "David Novak" : {
       "rd1": 0,
       "rd2": 0,
       "rd3": 0,
-      "Total": 0
+      "Total": 0,
+      "handicap": 0
     },
     "Tony Dilulio" : {
       "rd1": 0,
       "rd2": 0,
       "rd3": 0,
-      "Total": 0
+      "Total": 0,
+      "handicap": 0
     },
     "Jake The Snake" : {
       "rd1": 0,
       "rd2": 0,
       "rd3": 0,
-      "Total": 0
+      "Total": 0,
+      "handicap": 0
     },
     "Matt Dilulio" : {
       "rd1": 0,
       "rd2": 0,
       "rd3": 0,
-      "Total": 0
+      "Total": 0,
+      "handicap": 0
     },
     "Jon Hartman" : {
       "rd1": 0,
       "rd2": 0,
       "rd3": 0,
-      "Total": 0
+      "Total": 0,
+      "handicap": 0
     },
     "Joe Barkley" : {
       "rd1": 0,
       "rd2": 0,
       "rd3": 0,
-      "Total": 0
+      "Total": 0,
+      "handicap": 0
     },
     "Jack Haley" : {
       "rd1": 0,
       "rd2": 0,
       "rd3": 0,
-      "Total": 0
+      "Total": 0,
+      "handicap": 0
     }
+  },
+  "groupings" : {
+    "Group 1" : [
+      "Matt Dilulio",
+      "Joe Barkley",
+      "David Novak",
+      "Mark Salamacha"
+    ],
+    "Group 2" : [
+      "Jake The Snake",
+      "Jon Hartman",
+      "Fred Wolfe",
+      "Tony Dilulio"
+    ],
+    "Group 3" : [
+      "Jack Haley",
+      "Robert Novak",
+      "Eric Rosswog",
+      "Tom Jozwiak"
+    ]
   }
 }
