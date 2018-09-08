@@ -598,13 +598,31 @@ TheCrick.prototype.displayLeaderboardEntry = function(name, total, rd1, rd2, rd3
   var tn3 = document.createTextNode(total);
   cell3.appendChild(tn3);
   var cell4 = document.createElement('td');
-  var tn4 = document.createTextNode(rd1);
+  var tn4;
+  if (rd1 === '-') {
+    tn4 = document.createTextNode('- (-)');
+  }
+  else {
+    tn4 = document.createTextNode(rd1 + ' (' + (parseInt(rd1) + parseInt(handicap)) + ')');
+  }
   cell4.appendChild(tn4);
   var cell5 = document.createElement('td');
-  var tn5 = document.createTextNode(rd2);
+  var tn5;
+  if (rd2 === '-') {
+    tn5 = document.createTextNode('- (-)');
+  }
+  else {
+    tn5 = document.createTextNode(rd2 + ' (' + (parseInt(rd2) + parseInt(handicap)) + ')');
+  }
   cell5.appendChild(tn5);
   var cell6 = document.createElement('td');
-  var tn6 = document.createTextNode(rd3);
+  var tn6;
+  if (rd3 === '-') {
+    tn6 = document.createTextNode('- (-)');
+  }
+  else {
+    tn6 = document.createTextNode(rd3 + ' (' + (parseInt(rd3) + parseInt(handicap)) + ')');
+  }
   cell6.appendChild(tn6);
   row.appendChild(cell1);
   row.appendChild(cell2);
