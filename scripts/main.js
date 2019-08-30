@@ -11,7 +11,7 @@ TheCrick.LEADERBOARD_ROW_TEMPLATE =
 
 const PAR_NORTH = 70;
 const FOURSOME = 4;
-const MAX_GROUPS = 3;
+const MAX_GROUPS = 4;
 
 // Initializes the App
 function TheCrick() {
@@ -90,6 +90,10 @@ function TheCrick() {
     this.golfer3bCB = document.getElementById("golfer3b");
     this.golfer3cCB = document.getElementById("golfer3c");
     this.golfer3dCB = document.getElementById("golfer3d");
+    this.golfer4aCB = document.getElementById("golfer4a");
+    this.golfer4bCB = document.getElementById("golfer4b");
+    this.golfer4cCB = document.getElementById("golfer4c");
+    this.golfer4dCB = document.getElementById("golfer4d");
     this.newGroupsSnackBarContainer = document.getElementById("new-groups-snackbar");
 
     // Toggle for the button.
@@ -100,6 +104,8 @@ function TheCrick() {
     this.golfer2aCB.addEventListener('keyup', newGroupsButtonTogglingHandler);
     this.golfer3aCB.addEventListener('change', newGroupsButtonTogglingHandler);
     this.golfer3aCB.addEventListener('keyup', newGroupsButtonTogglingHandler);
+    this.golfer4aCB.addEventListener('change', newGroupsButtonTogglingHandler);
+    this.golfer4aCB.addEventListener('keyup', newGroupsButtonTogglingHandler);
 
     this.newGroupingsForm.addEventListener('submit', this.processNewGroups.bind(this));
     this.loadRegisterComboBoxes();
@@ -117,6 +123,7 @@ TheCrick.prototype.processNewGroups = function(e) {
       updates['/groupings/' + 'Group 1'] = [this.golfer1aCB.value, this.golfer1bCB.value, this.golfer1cCB.value, this.golfer1dCB.value];
       updates['/groupings/' + 'Group 2'] = [this.golfer2aCB.value, this.golfer2bCB.value, this.golfer2cCB.value, this.golfer2dCB.value];
       updates['/groupings/' + 'Group 3'] = [this.golfer3aCB.value, this.golfer3bCB.value, this.golfer3cCB.value, this.golfer3dCB.value];
+      updates['/groupings/' + 'Group 4'] = [this.golfer4aCB.value, this.golfer4bCB.value, this.golfer4cCB.value, this.golfer4dCB.value];
 
       var data = {
         message: 'New Groups have been recorded.',
@@ -135,6 +142,10 @@ TheCrick.prototype.processNewGroups = function(e) {
       this.golfer3bCB.value = "";
       this.golfer3cCB.value = "";
       this.golfer3dCB.value = "";
+      this.golfer4aCB.value = "";
+      this.golfer4bCB.value = "";
+      this.golfer4cCB.value = "";
+      this.golfer4dCB.value = "";
       this.newGroupsSnackbarContainer.MaterialSnackbar.showSnackbar(data);
     }
   }
@@ -208,6 +219,26 @@ TheCrick.prototype.loadRegisterComboBoxes = function () {
     var opt3d = document.createElement('option');
     opt3d.appendChild(tn3d);
     this.golfer3dCB.appendChild(opt3d);
+
+    var tn4a = document.createTextNode(data.key);
+    var opt4a = document.createElement('option');
+    opt4a.appendChild(tn4a);
+    this.golfer4aCB.appendChild(opt4a);
+
+    var tn4b = document.createTextNode(data.key);
+    var opt4b = document.createElement('option');
+    opt4b.appendChild(tn4b);
+    this.golfer4bCB.appendChild(opt4b);
+
+    var tn4c = document.createTextNode(data.key);
+    var opt4c = document.createElement('option');
+    opt4c.appendChild(tn4c);
+    this.golfer4cCB.appendChild(opt4c);
+
+    var tn4d = document.createTextNode(data.key);
+    var opt4d = document.createElement('option');
+    opt4d.appendChild(tn4d);
+    this.golfer4dCB.appendChild(opt4d);
   }.bind(this);
   this.leaderboardRef.on('child_added', loadGolfer);
   this.leaderboardRef.on('child_changed', loadGolfer);
@@ -356,7 +387,7 @@ TheCrick.prototype.toggleRegisterButton = function() {
 // Enables or disables the submit button depending on the values of the input
 // fields.
 TheCrick.prototype.toggleNewGroupsButton = function() {
-  if (this.golfer1aCB.value != "" && this.golfer2aCB.value != "" && this.golfer3aCB.value != "") {
+  if (this.golfer1aCB.value != "" && this.golfer2aCB.value != "" && this.golfer3aCB.value != "" && this.golfer4aCB.value != "") {
     if (this.checkSignedInWithMessage()) {
       var currentUser = this.auth.currentUser;
       if (currentUser.email == "erosswog@gmail.com" || currentUser.email == "mbsalamacha@gmail.com") {
