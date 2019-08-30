@@ -104,8 +104,8 @@ function TheCrick() {
     this.golfer2aCB.addEventListener('keyup', newGroupsButtonTogglingHandler);
     this.golfer3aCB.addEventListener('change', newGroupsButtonTogglingHandler);
     this.golfer3aCB.addEventListener('keyup', newGroupsButtonTogglingHandler);
-    this.golfer4aCB.addEventListener('change', newGroupButtonTogglingHandler);
-    this.golfer4aCB.addEventListener('keyup', newGroupButtonTogglingHandler);
+    this.golfer4aCB.addEventListener('change', newGroupsButtonTogglingHandler);
+    this.golfer4aCB.addEventListener('keyup', newGroupsButtonTogglingHandler);
 
     this.newGroupingsForm.addEventListener('submit', this.processNewGroups.bind(this));
     this.loadRegisterComboBoxes();
