@@ -94,6 +94,14 @@ function TheCrick() {
     this.golfer4bCB = document.getElementById("golfer4b");
     this.golfer4cCB = document.getElementById("golfer4c");
     this.golfer4dCB = document.getElementById("golfer4d");
+    this.golfer5aCB = document.getElementById("golfer5a");
+    this.golfer5bCB = document.getElementById("golfer5b");
+    this.golfer5cCB = document.getElementById("golfer5c");
+    this.golfer5dCB = document.getElementById("golfer5d");
+    this.golfer6aCB = document.getElementById("golfer6a");
+    this.golfer6bCB = document.getElementById("golfer6b");
+    this.golfer6cCB = document.getElementById("golfer6c");
+    this.golfer6dCB = document.getElementById("golfer6d");
     this.newGroupsSnackBarContainer = document.getElementById("new-groups-snackbar");
 
     // Toggle for the button.
@@ -117,13 +125,15 @@ TheCrick.prototype.processNewGroups = function(e) {
   // Check that the user is signed in.
   if (this.checkSignedInWithMessage()) {
     var currentUser = this.auth.currentUser;
-    if (currentUser.email === "erosswog@gmail.com" || currentUser.email === "mbsalamacha@gmail.com") {
+    if (currentUser.email === "erosswog@gmail.com" || currentUser.email === "mbsalamacha@gmail.com" || currentUser.email == "matthew.dilulio21@gmail.com") {
 
       var updates = {};
-      updates['/groupings/' + 'Group 1'] = [this.golfer1aCB.value, this.golfer1bCB.value, this.golfer1cCB.value, this.golfer1dCB.value];
-      updates['/groupings/' + 'Group 2'] = [this.golfer2aCB.value, this.golfer2bCB.value, this.golfer2cCB.value, this.golfer2dCB.value];
-      updates['/groupings/' + 'Group 3'] = [this.golfer3aCB.value, this.golfer3bCB.value, this.golfer3cCB.value, this.golfer3dCB.value];
-      updates['/groupings/' + 'Group 4'] = [this.golfer4aCB.value, this.golfer4bCB.value, this.golfer4cCB.value, this.golfer4dCB.value];
+      updates['/groupings/' + 'Group 1 (17A)'] = [this.golfer1aCB.value, this.golfer1bCB.value, this.golfer1cCB.value, this.golfer1dCB.value];
+      updates['/groupings/' + 'Group 2 (17B)'] = [this.golfer2aCB.value, this.golfer2bCB.value, this.golfer2cCB.value, this.golfer2dCB.value];
+      updates['/groupings/' + 'Group 3 (18A)'] = [this.golfer3aCB.value, this.golfer3bCB.value, this.golfer3cCB.value, this.golfer3dCB.value];
+      updates['/groupings/' + 'Group 4 (18B)'] = [this.golfer4aCB.value, this.golfer4bCB.value, this.golfer4cCB.value, this.golfer4dCB.value];
+      updates['/groupings/' + 'Group 5 (1A)'] = [this.golfer5aCB.value, this.golfer5bCB.value, this.golfer5cCB.value, this.golfer5dCB.value];
+      updates['/groupings/' + 'Group 6 (1B)'] = [this.golfer6aCB.value, this.golfer6bCB.value, this.golfer6cCB.value, this.golfer6dCB.value];
 
       var data = {
         message: 'New Groups have been recorded.',
@@ -146,6 +156,14 @@ TheCrick.prototype.processNewGroups = function(e) {
       this.golfer4bCB.value = "";
       this.golfer4cCB.value = "";
       this.golfer4dCB.value = "";
+      this.golfer5aCB.value = "";
+      this.golfer5bCB.value = "";
+      this.golfer5cCB.value = "";
+      this.golfer5dCB.value = "";
+      this.golfer6aCB.value = "";
+      this.golfer6bCB.value = "";
+      this.golfer6cCB.value = "";
+      this.golfer6dCB.value = "";
       this.newGroupsSnackbarContainer.MaterialSnackbar.showSnackbar(data);
     }
   }
@@ -239,6 +257,46 @@ TheCrick.prototype.loadRegisterComboBoxes = function () {
     var opt4d = document.createElement('option');
     opt4d.appendChild(tn4d);
     this.golfer4dCB.appendChild(opt4d);
+    
+    var tn5a = document.createTextNode(data.key);
+    var opt5a = document.createElement('option');
+    opt5a.appendChild(tn5a);
+    this.golfer5aCB.appendChild(opt5a);
+
+    var tn5b = document.createTextNode(data.key);
+    var opt5b = document.createElement('option');
+    opt5b.appendChild(tn5b);
+    this.golfer5bCB.appendChild(opt5b);
+
+    var tn5c = document.createTextNode(data.key);
+    var opt5c = document.createElement('option');
+    opt5c.appendChild(tn5c);
+    this.golfer5cCB.appendChild(opt5c);
+
+    var tn5d = document.createTextNode(data.key);
+    var opt5d = document.createElement('option');
+    opt5d.appendChild(tn5d);
+    this.golfer5dCB.appendChild(opt5d);
+    
+    var tn6a = document.createTextNode(data.key);
+    var opt6a = document.createElement('option');
+    opt6a.appendChild(tn6a);
+    this.golfer6aCB.appendChild(opt6a);
+
+    var tn6b = document.createTextNode(data.key);
+    var opt6b = document.createElement('option');
+    opt6b.appendChild(tn6b);
+    this.golfer6bCB.appendChild(opt6b);
+
+    var tn6c = document.createTextNode(data.key);
+    var opt6c = document.createElement('option');
+    opt6c.appendChild(tn6c);
+    this.golfer6cCB.appendChild(opt6c);
+
+    var tn6d = document.createTextNode(data.key);
+    var opt6d = document.createElement('option');
+    opt6d.appendChild(tn6d);
+    this.golfer6dCB.appendChild(opt6d);
   }.bind(this);
   this.leaderboardRef.on('child_added', loadGolfer);
   this.leaderboardRef.on('child_changed', loadGolfer);
@@ -299,7 +357,7 @@ TheCrick.prototype.registerGolfer = function(e) {
   // Check that the user is signed in.
   if (this.checkSignedInWithMessage()) {
     var currentUser = this.auth.currentUser;
-    if (currentUser.email === "erosswog@gmail.com" || currentUser.email === "mbsalamacha@gmail.com") {
+    if (currentUser.email === "erosswog@gmail.com" || currentUser.email === "mbsalamacha@gmail.com" || currentUser.email == "matthew.dilulio21@gmail.com") {
       firebase.database().ref('leaderboard/' + this.nameTB.value).set({
         Total: 0,
         handicap: this.handicapTB.value,
@@ -346,7 +404,7 @@ TheCrick.prototype.toggleButton = function() {
   if (this.golfersCB.value && this.roundCB.value && this.scoreTB.value) {
     if (this.checkSignedInWithMessage()) {
       var currentUser = this.auth.currentUser;
-      if (currentUser.email == "erosswog@gmail.com" || currentUser.email == "mbsalamacha@gmail.com") {
+      if (currentUser.email == "erosswog@gmail.com" || currentUser.email == "mbsalamacha@gmail.com" || currentUser.email == "matthew.dilulio21@gmail.com") {
         this.submitButton.removeAttribute('disabled');
       }
       else {
@@ -368,7 +426,7 @@ TheCrick.prototype.toggleRegisterButton = function() {
   if (this.nameTB.value && this.handicapTB.value) {
     if (this.checkSignedInWithMessage()) {
       var currentUser = this.auth.currentUser;
-      if (currentUser.email == "erosswog@gmail.com" || currentUser.email == "mbsalamacha@gmail.com") {
+      if (currentUser.email == "erosswog@gmail.com" || currentUser.email == "mbsalamacha@gmail.com" || currentUser.email == "matthews.dilulio21@gmail.com") {
         this.registerButton.removeAttribute('disabled');
       }
       else {
@@ -390,7 +448,7 @@ TheCrick.prototype.toggleNewGroupsButton = function() {
   if (this.golfer1aCB.value != "" && this.golfer2aCB.value != "" && this.golfer3aCB.value != "" && this.golfer4aCB.value != "") {
     if (this.checkSignedInWithMessage()) {
       var currentUser = this.auth.currentUser;
-      if (currentUser.email == "erosswog@gmail.com" || currentUser.email == "mbsalamacha@gmail.com") {
+      if (currentUser.email == "erosswog@gmail.com" || currentUser.email == "mbsalamacha@gmail.com" || currentUser.email == "matthew.dilulio21@gmail.com") {
         this.submitButton.removeAttribute('disabled');
       }
       else {
@@ -412,7 +470,7 @@ TheCrick.prototype.postScore = function(e) {
   // Check that the user is signed in.
   if (this.checkSignedInWithMessage()) {
     var currentUser = this.auth.currentUser;
-    if (currentUser.email === "erosswog@gmail.com" || currentUser.email === "mbsalamacha@gmail.com") {
+    if (currentUser.email == "erosswog@gmail.com" || currentUser.email == "mbsalamacha@gmail.com" || currentUser.email == "matthew.dilulio21@gmail.com") {
       // Retrieve DB entry corresponding to selected golfer and update data for
       // the round selected. If that round already has an entry, overwrite it.
       var userId = firebase.auth().currentUser.uid;
