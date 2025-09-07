@@ -42,7 +42,7 @@
       "Total": 0,
       "handicap": 0
     },
-    "Tony Dilulio" : {
+    "Tony DiLulio" : {
       "rd1": 0,
       "rd2": 0,
       "rd3": 0,
@@ -56,7 +56,7 @@
       "Total": 0,
       "handicap": 0
     },
-    "Matt Dilulio" : {
+    "Matt DiLulio" : {
       "rd1": 0,
       "rd2": 0,
       "rd3": 0,
@@ -77,7 +77,7 @@
       "Total": 0,
       "handicap": 0
     },
-    "Jack Haley" : {
+    "Jack Halley" : {
       "rd1": 0,
       "rd2": 0,
       "rd3": 0,
@@ -87,7 +87,7 @@
   },
   "groupings" : {
     "Group 1" : [
-      "Matt Dilulio",
+      "Matt DiLulio",
       "Joe Barkley",
       "David Novak",
       "Mark Salamacha"
@@ -96,7 +96,7 @@
       "Jake The Snake",
       "Jon Hartman",
       "Fred Wolfe",
-      "Tony Dilulio"
+      "Tony DiLulio"
     ],
     "Group 3" : [
       "Jack Haley",

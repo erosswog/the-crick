@@ -2,6 +2,7 @@
   "projects": {
     "TheCrick": "thecrick-ac7b0",
     "thecrick": "thecrick-ac7b0",
-    "the-crick": "thecrick-ac7b0"
+    "the-crick": "thecrick-ac7b0",
+    "default": "thecrick-ac7b0"
   }
 }
