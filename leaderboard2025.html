@@ -64,7 +64,7 @@
     <div class="demo-layout mdl-layout mdl-js-layout mdl-layout--fixed-drawer mdl-layout--fixed-header">
       <header class="demo-header mdl-layout__header mdl-color--grey-100 mdl-color-text--grey-600">
         <div class="mdl-layout__header-row">
-          <span id="page-header" class="mdl-layout-title">Past Champions</span>
+          <span id="page-header" class="mdl-layout-title">2025 Leaderboard</span>
           <div class="mdl-layout-spacer"></div>
           <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon" id="hdrbtn">
             <i class="material-icons">more_vert</i>
@@ -108,80 +108,152 @@
       </div>
       <main class="mdl-layout__content mdl-color--grey-100 demo-content">
         <div class="mdl-grid demo-content">
-            <table id="champions" class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
-              <thead>
-                <tr>
-                  <th>Year</th>
-                  <th class="mdl-data-table__cell--non-numeric">Champion</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td><a href="leaderboard2025.html">2025</a></td>
-                  <td class="mdl-data-table__cell--non-numeric">Tom "Joz" Jozwiak</td>
-                </tr>
-                <tr>
-                  <td><a href="leaderboard2024.html">2024</a></td>
-                  <td class="mdl-data-table__cell--non-numeric">Derek Meister (2)</td>
-                </tr>
-                <tr>
-                  <td>2023</td>
-                  <td class="mdl-data-table__cell--non-numeric">Derek Meister</td>
-                </tr>
-                <tr>
-                  <td><a href="leaderboard2022.html">2022</a></td>
-                  <td class="mdl-data-table__cell--non-numeric">AJ DiLulio</td>
-                </tr>
-                <tr>
-                  <td><a href="leaderboard2021.html">2021</a></td>
-                  <td class="mdl-data-table__cell--non-numeric">Joe Zaso</td>
-                </tr>
-                <tr>
-                  <td><a href="leaderboard2020.html">2020</a></td>
-                  <td class="mdl-data-table__cell--non-numeric">Jack Halley</td>
-                </tr>
-                <tr>
-                  <td><a href="leaderboard2019.html">2019</a></td>
-                  <td class="mdl-data-table__cell--non-numeric">Joe Barkley (2)</td>
-                </tr>
-                <tr>
-                  <td><a href="leaderboard2018.html">2018</a></td>
-                  <td class="mdl-data-table__cell--non-numeric">Eric Rosswog</td>
-                </tr>
-                <tr>
-                  <td><a href="leaderboard2017.html">2017</a></td>
-                  <td class="mdl-data-table__cell--non-numeric">Joe Barkley</td>
-                </tr>
-                <tr>
-                  <td>2016</td>
-                  <td class="mdl-data-table__cell--non-numeric">Fred Wolfe (2)</td>
-                </tr>
-                <tr>
-                  <td>2015</td>
-                  <td class="mdl-data-table__cell--non-numeric">Fred Wolfe</td>
-                </tr>
-                <tr>
-                  <td>2014</td>
-                  <td class="mdl-data-table__cell--non-numeric">Jon Hartman</td>
-                </tr>
-                <tr>
-                  <td>2013</td>
-                  <td class="mdl-data-table__cell--non-numeric">No Champion</td>
-                </tr>
-                <tr>
-                  <td>2012</td>
-                  <td class="mdl-data-table__cell--non-numeric">David Novak</td>
-                </tr>
-                <tr>
-                  <td>2011</td>
-                  <td class="mdl-data-table__cell--non-numeric">Robert Novak</td>
-                </tr>
-                <tr>
-                  <td>2010</td>
-                  <td class="mdl-data-table__cell--non-numeric">Steve Milano</td>
-                </tr>
-              </tbody>
-          </table>
+          <div id="leaderboard-card" style="width:fit-content" style="overflow-x:scroll" class="mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col mdl-cell--6-col-tablet mdl-cell--6-col-desktop">
+            <div class="mdl-card__supporting-text mdl-color-text--grey-600" style="overflow-x:scroll" style="width:fit-content">
+              <table id="leaderboard" class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
+                <thead>
+                  <tr>
+                    <th>Rank</th>
+                    <th class="mdl-data-table__cell--non-numeric">Player (Hdcp)</th>
+                    <th>Total</th>
+                    <th>Rd 1</th>
+                    <th>Rd 2</th>
+                    <th>Rd 3</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>1</td>
+                    <td class="mdl-data-table__cell--non-numeric">Tom Jozwiak (41)</td>
+                    <td>-17</td>
+                    <td>70 (111)</td>
+                    <td>66 (107)</td>
+                    <td>57 (98)</td>
+                  </tr>
+                  <tr>
+                    <td>2</td>
+                    <td class="mdl-data-table__cell--non-numeric">AJ DiLulio (8)</td>
+                    <td>-7</td>
+                    <td>69 (77)</td>
+                    <td>65 (73)</td>
+                    <td>69 (77)</td>
+                  </tr>
+                  <tr>
+                    <td>3</td>
+                    <td class="mdl-data-table__cell--non-numeric">Derek Meister (21)</td>
+                    <td>-6</td>
+                    <td>69 (90)</td>
+                    <td>67 (88)</td>
+                    <td>68 (89)</td>
+                  </tr>
+                  <tr>
+                    <td>4</td>
+                    <td class="mdl-data-table__cell--non-numeric">Pete Hoffman (6)</td>
+                    <td>-5</td>
+                    <td>65 (71)</td>
+                    <td>71 (77)</td>
+                    <td>69 (75)</td>
+                  </tr>
+                  <tr>
+                    <td>5</td>
+                    <td class="mdl-data-table__cell--non-numeric">David Novak (24)</td>
+                    <td>5</td>
+                    <td>79 (103)</td>
+                    <td>70 (94)</td>
+                    <td>66 (90)</td>
+                  </tr>
+                  <tr>
+                    <td>6</td>
+                    <td class="mdl-data-table__cell--non-numeric">Jack Halley (24)</td>
+                    <td>6</td>
+                    <td>73 (97)</td>
+                    <td>74 (98)</td>
+                    <td>69 (93)</td>
+                  </tr>
+                  <tr>
+                    <td>7</td>
+                    <td class="mdl-data-table__cell--non-numeric">Matt DiLulio (6)</td>
+                    <td>8</td>
+                    <td>68 (74)</td>
+                    <td>77 (83)</td>
+                    <td>73 (79)</td>
+                  </tr>
+                  <tr>
+                    <td>8</td>
+                    <td class="mdl-data-table__cell--non-numeric">Tony DiLulio</td>
+                    <td>8</td>
+                    <td>75 (92)</td>
+                    <td>71 (88)</td>
+                    <td>72 (89)</td>
+                  </tr>
+                  <tr>
+                    <td>9</td>
+                    <td class="mdl-data-table__cell--non-numeric">Calvin Hughes (18)</td>
+                    <td>12</td>
+                    <td>79 (97)</td>
+                    <td>71 (89)</td>
+                    <td>72 (90)</td>
+                  </tr>
+                  <tr>
+                    <td>10</td>
+                    <td class="mdl-data-table__cell--non-numeric">Josh Bishop (13)</td>
+                    <td>12</td>
+                    <td>78 (91)</td>
+                    <td>70 (83)</td>
+                    <td>74 (87)</td>
+                  </tr>
+                  <tr>
+                    <td>11</td>
+                    <td class="mdl-data-table__cell--non-numeric">Fred Wolfe (23)</td>
+                    <td>17</td>
+                    <td>72 (95)</td>
+                    <td>74 (97)</td>
+                    <td>81 (104)</td>
+                  </tr>
+                  <tr>
+                    <td>12</td>
+                    <td class="mdl-data-table__cell--non-numeric">Glenn Meister (17)</td>
+                    <td>18</td>
+                    <td>74 (91)</td>
+                    <td>75 (92)</td>
+                    <td>79 (96)</td>
+                  </tr>
+                  <tr>
+                    <td>13</td>
+                    <td class="mdl-data-table__cell--non-numeric">Eric Rosswog (8)</td>
+                    <td>19</td>
+                    <td>80 (88)</td>
+                    <td>74 (82)</td>
+                    <td>75 (83)</td>
+                  </tr>
+                  <tr>
+                    <td>14</td>
+                    <td class="mdl-data-table__cell--non-numeric">Joe Zaso (34)</td>
+                    <td>24</td>
+                    <td>83 (117)</td>
+                    <td>81 (115)</td>
+                    <td>70 (104)</td>
+                  </tr>
+                  <tr>
+                    <td>15</td>
+                    <td class="mdl-data-table__cell--non-numeric">Joe Barkley (12)</td>
+                    <td>25</td>
+                    <td>82 (94)</td>
+                    <td>79 (91)</td>
+                    <td>74 (86)</td>
+                  </tr>
+                  <tr>
+                    <td>16</td>
+                    <td class="mdl-data-table__cell--non-numeric">Mark Salamacha (27)</td>
+                    <td>DNF</td>
+                    <td>80 (107)</td>
+                    <td>- (-)</td>
+                    <td>- (-)</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
         </div>
       </main>
     </div>
